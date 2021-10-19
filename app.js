@@ -4,21 +4,39 @@ const express = require('express');
 //create app instance:
 const app = express();
 
+//Register view engine:
+app.set('view engine', 'ejs')
+
+app.use((req, res, next)=>{
+    console.log("Middleware");
+    next();
+})
+
 app.get('/', (req, res)=>{
-    res.sendFile('/views/index.html', {root: __dirname});
+    const people = [
+        {
+            name: 'John',
+            age: 25,
+        },
+        {
+            name: 'Paul',
+            age: 25,
+        },
+        {
+            name: 'Raymond',
+            age: 25,
+        }
+    ]
+    res.render('index', { title: 'Home', people});
 });
 
 app.get('/about', (req, res)=>{
-    res.sendFile('/views/about.html', {root: __dirname});
+    res.render('about', { title: 'About'});
 });
 
-//redirect:
-app.get('/about-us', (req, res)=>{
-    res.redirect('/about');
-})
 
 app.use((req, res)=>{
-    res.sendFile('/views/404.html', {root: __dirname});
+    res.render('404', {title: '404'});
 })
 
 app.listen(3000);
