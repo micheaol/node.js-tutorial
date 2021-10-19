@@ -15,7 +15,7 @@ app.use((req, res, next)=>{
 app.get('/', (req, res)=>{
     const people = [
         {
-            name: 'John',
+            name: 'Paul',
             age: 25,
         },
         {
